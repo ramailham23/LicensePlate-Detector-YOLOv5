@@ -1,0 +1,4 @@
+telegram_token: "YOUR TELEGRAM BOT API"
+chat_id: "YOUR TELEGRAM CHAT ID"
+model_path: "YOUR TRAINING MODEL"
+camera_index: 0
