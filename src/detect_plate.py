@@ -9,18 +9,18 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-sys.path.append("/home/ramailham/platnomor/yolov5")
+sys.path.append("Folder pengguna: {user_folder}/yolov")
 
 from models.common import DetectMultiBackend
 from utils.general import non_max_suppression, scale_boxes
 from utils.plots import Annotator, colors
 
-with open("/home/ramailham/platnomor/config.yaml", "r") as f:
+with open("Folder pengguna: {user_folder}/config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
 TELEGRAM_TOKEN = config["telegram_token"]
 CHAT_ID = config["chat_id"]
-MODEL_PATH = "/home/ramailham/platnomor/weights/" + config["model_path"]
+MODEL_PATH = "Folder pengguna: {user_folder}/weights/" + config["model_path"]
 CAMERA_INDEX = config["camera_index"]
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -36,7 +36,7 @@ def send_to_telegram(image_path, plate_text):
 
 def preprocess_plate(plate_image):
     gray = cv2.cvtColor(plate_image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.resize(gray, (gray.shape[1] * 2, gray.shape[0] * 2))  # Perbesar ukuran untuk OCR
+    gray = cv2.resize(gray, (gray.shape[1] * 2, gray.shape[0] * 2)) 
     gray = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
     return gray
 
@@ -76,7 +76,7 @@ def detect_license_plate():
                     
                     if plate_text:
                         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-                        image_path = f"/home/ramailham/platnomor/runs/{timestamp}.jpg"
+                        image_path = f"Folder pengguna: {user_folder}/runs/{timestamp}.jpg"
                         cv2.imwrite(image_path, plate_crop)
                         send_to_telegram(image_path, plate_text)
                         
